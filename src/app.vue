@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar>
       <v-app-bar-title>
-        <NuxtLink to="/">見出し</NuxtLink>
+        <NuxtLink to="/">虹</NuxtLink>
       </v-app-bar-title>
       <v-app-bar-nav-icon
         variant="text"
@@ -11,8 +11,8 @@
     </v-app-bar>
     <v-navigation-drawer v-model="isMenuOpen" location="right" temporary>
       <v-container>
-        <v-btn variant="flat" color="secondary" class="my-2" to="">
-          ボタン
+        <v-btn variant="flat" color="info" class="my-2" to="/about">
+          このサイトについて
         </v-btn>
       </v-container>
     </v-navigation-drawer>
