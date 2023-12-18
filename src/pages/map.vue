@@ -17,6 +17,7 @@
 
 <script setup>
 import testData from "@/assets/testData.json";
+const rainbowData = await $fetch("/api/getRainbowData");
 const url = "https://cyberjapandata.gsi.go.jp/xyz/std/15/";
 const urlTemplate = `https://cyberjapandata.gsi.go.jp/xyz/std/15/29084/12886.png`;
 
@@ -26,11 +27,16 @@ for (let x = 0; x < 40; x++) {
     items[x + 40 * y] = [x, y, false];
   }
 }
-console.log(items);
+// console.log(items);
 
-for (const point of testData) {
-  items[point[0] + 40 * point[1]][2] = true;
+// for (const point of testData) {
+//   items[point[0] + 40 * point[1]][2] = true;
+// }
+
+for (const point of rainbowData.response.items) {
+  items[point.x + 40 * point.y][2] = true;
 }
+
 console.log(items);
 </script>
 
