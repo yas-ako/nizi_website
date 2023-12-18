@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
   const prompt = (await readBody(event)) || {};
   console.log(prompt);
   const response = await fetch(process.env.GAS_URL, {
-    method: "POST",
+    method: "GET",
     body: prompt,
     headers: {
       "Content-Type": "text/plain;charset=utf-8",
