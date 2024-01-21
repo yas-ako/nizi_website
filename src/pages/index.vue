@@ -15,7 +15,7 @@ const route = useRoute();
     <v-btn color="info">地図を見る</v-btn>
   </NuxtLink>
 
-  <p>
+  <p class="text-center h1 p-5">
     <!-- Begin Yahoo! JAPAN Web Services Attribution Snippet -->
     <span style="margin: 15px 15px 15px 15px"
       ><a href="https://developer.yahoo.co.jp/sitemap/"
