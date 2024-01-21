@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar>
       <v-app-bar-title>
-        <NuxtLink to="/">虹</NuxtLink>
+        <NuxtLink to="/">虹予報</NuxtLink>
       </v-app-bar-title>
       <v-app-bar-nav-icon
         variant="text"
