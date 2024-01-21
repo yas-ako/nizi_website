@@ -11,17 +11,18 @@ const route = useRoute();
     予報情報につきましては、気象学的解析に基づくもので不可知要素を含んでおり、実際の結果とは異なる可能性がございます。また、本情報に基づいて遂行された活動において発生した、いかなる障害及び事故について、一切の責任は負いかねますので、あらかじめご了解の上ご利用くださいますよう
     お願い申し上げます。
   </p>
+
   <NuxtLink to="map">
     <v-btn color="info">地図を見る</v-btn>
   </NuxtLink>
 
-  <p class="text-center h1 p-5">
+  <div class="text-center m-5">
     <!-- Begin Yahoo! JAPAN Web Services Attribution Snippet -->
-    <span style="margin: 15px 15px 15px 15px"
+    <span class="text-center h1 p-5" style="margin: 15px 15px 15px 15px"
       ><a href="https://developer.yahoo.co.jp/sitemap/"
         >Webサービス by Yahoo! JAPAN</a
       ></span
     >
     <!-- End Yahoo! JAPAN Web Services Attribution Snippet -->
-  </p>
+  </div>
 </template>
