@@ -11,9 +11,9 @@
     </v-app-bar>
     <v-navigation-drawer v-model="isMenuOpen" location="right" temporary>
       <v-container>
-        <v-btn variant="flat" color="info" class="my-2" to="/about">
+        <!-- <v-btn variant="flat" color="info" class="my-2" to="/about">
           このサイトについて
-        </v-btn>
+        </v-btn> -->
       </v-container>
     </v-navigation-drawer>
     <v-main>
