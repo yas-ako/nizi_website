@@ -13,7 +13,7 @@ const route = useRoute();
   </p>
 <p class="my-3">虹が見える可能性が高いと判定された地域は、地図の色を反転させて表現しています。</p>
 
-  <NuxtLink to="map" class="my-5 mx-auto>
+  <NuxtLink to="map" class="my-5 mx-auto">
     <v-btn color="info">地図を見る</v-btn>
   </NuxtLink>
 
