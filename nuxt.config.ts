@@ -6,6 +6,9 @@ export default defineNuxtConfig({
   build: {
     transpile: ["vuetify"],
   },
+  runtimeConfig: {
+    GAS_URL: "",
+  },
   modules: [
     (_options, nuxt) => {
       nuxt.hooks.hook("vite:extendConfig", (config) => {
@@ -23,4 +26,7 @@ export default defineNuxtConfig({
   },
   css: ["~/assets/css/style.css"],
   ssr: true,
+  routeRules: {
+    "/map": { ssr: false },
+  },
 });

@@ -4,7 +4,7 @@ import { readBody } from "h3";
 export default defineEventHandler(async (event) => {
   // const prompt = (await readBody(event)) || {};
   // console.log(prompt);
-  const response = await $fetch(process.env.GAS_URL, {
+  const response = await fetch(process.env.GAS_URL, {
     method: "GET",
     // body: prompt,
     headers: {
