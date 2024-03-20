@@ -84,10 +84,9 @@ onMounted(() => {
 
 <style scoped>
 .container {
-  margin-bottom: auto;
-  display: grid;
-  grid-template-columns: repeat(40, 2.5%);
-  /* grid-template-rows: repeat(40, 2.5%); */
+  /* margin-bottom: auto; */
+  overflow: scroll;
+  height: 70svh;
 }
 .image {
   width: 100%;
