@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <canvas id="map"></canvas>
+    <!-- <canvas id=""></canvas> -->
   </div>
 </template>
 
@@ -60,154 +61,71 @@ onMounted(() => {
   canvas.width = tileInfo.canvasSize;
   canvas.height = tileInfo.canvasSize;
   const ctx = canvas.getContext("2d");
-
-  // 画像を取得，描画
-  // for (const key in imageURLs) {
-  //   if (Object.hasOwnProperty.call(imageURLs, key)) {
-  //     const img = new Image();
-
-  //     // `key` 番目の画像のURLを取得
-  //     img.src = imageURLs[key];
-
-  //     // 画像が読み込まれたら
-  //     img.onload = () => {
-  //       const x =
-  //         (key % tileInfo.numberOfSheetsPerSide) *
-  //         (tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide);
-  //       const y =
-  //         Math.floor(key / tileInfo.numberOfSheetsPerSide) *
-  //         (tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide);
-  //       ctx.globalAlpha = 1;
-  //       ctx.drawImage(
-  //         img,
-  //         x,
-  //         y,
-  //         tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide,
-  //         tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide
-  //       );
-  //     };
-  //   }
-  // }
-  // renderMapImage(ctx);
-
-  //   for (const data of testData) {
-  //     const x = data[0] * (tileInfo.canvasSize / 40);
-  //     const y = data[1] * (tileInfo.canvasSize / 40);
-  //     console.log(
-  //       `data[0] : ${data[0]} , data[1] : ${data[1]} , x: ${x} , y: ${y}`
-  //     );
-  //     ctx.globalAlpha = 0.5;
-  //     ctx.fillStyle = "blue";
-  //     ctx.fillRect(x, y, tileInfo.canvasSize / 40, tileInfo.canvasSize / 40);
-  //   }
-
-  //   // for (const key in testData) {
-  //   // if (Object.hasOwnProperty.call(testData, key)) {
-  //   // const x = key[0] * (tileInfo.canvasSize / 40);
-  //   // const y = key[1] * (tileInfo.canvasSize / 40);
-  //   // console.log(
-  //   //   `key[0] : ${key[0]} , key[1] : ${key[1]} , x: ${x} , y: ${y}`
-  //   // );
-  //   // ctx.globalAlpha = 0.5;
-  //   // ctx.fillStyle = "blue";
-  //   // ctx.fillRect(x, y, tileInfo.canvasSize / 40, tileInfo.canvasSize / 40);
-  //   // }
-  //   // }
-
-  // Promise.all([renderMapImage(ctx), renderMapVisibleArea(ctx)]);
-  function render(ctx) {
-    console.log(150);
-    renderMapImage(ctx).then(function () {
-      console.log(200);
-      // 最初の操作が完了した後に次の操作を行う
-      return renderMapVisibleArea(ctx);
-    });
-    // .then(renderMapVisibleArea(ctx));
-    // .then(function () {
-    //   console.log(300);
-    //   // 次の操作が完了した後の処理
-    //   console.log("描画完了");
-    // });
-  }
-
-  // render(ctx);
-
-  function renderMapImage(ctx) {
-    return new Promise(function (resolve, reject) {
-      console.log(100);
-      for (const key in imageURLs) {
-        if (Object.hasOwnProperty.call(imageURLs, key)) {
-          const img = new Image();
-
-          // `key` 番目の画像のURLを取得
-          img.src = imageURLs[key];
-
-          // 画像が読み込まれたら
-          img.onload = () => {
-            const x =
-              (key % tileInfo.numberOfSheetsPerSide) *
-              (tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide);
-            const y =
-              Math.floor(key / tileInfo.numberOfSheetsPerSide) *
-              (tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide);
-            ctx.globalAlpha = 0.8;
-            ctx.drawImage(
-              img,
-              x,
-              y,
-              tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide,
-              tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide
-            );
-          };
-        }
-      }
-      resolve();
-    });
-  }
-
-  function renderMapVisibleArea(ctx) {
-    // return new Promise(function (resolve, reject) {
-    console.log(200);
-    for (const data of testData) {
-      const x = data[0] * (tileInfo.canvasSize / 40);
-      const y = data[1] * (tileInfo.canvasSize / 40);
-      console.log(
-        `data[0] : ${data[0]} , data[1] : ${data[1]} , x: ${x} , y: ${y}`
-      );
-      ctx.globalAlpha = 0.8;
-      ctx.fillStyle = "blue";
-      ctx.fillRect(x, y, tileInfo.canvasSize / 40, tileInfo.canvasSize / 40);
-    }
-    // });
-  }
-
-  renderMapImage(ctx).then(() => {
-    // renderMapVisibleArea(ctx);
-    for (const data of testData) {
-      const x = data[0] * (tileInfo.canvasSize / 40);
-      const y = data[1] * (tileInfo.canvasSize / 40);
-      console.log(
-        `data[0] : ${data[0]} , data[1] : ${data[1]} , x: ${x} , y: ${y}`
-      );
-      ctx.globalAlpha = 0.5;
-      ctx.fillStyle = "blue";
-      ctx.fillRect(x, y, tileInfo.canvasSize / 40, tileInfo.canvasSize / 40);
-    }
-  });
+  Promise.all([renderMapImage(ctx)]);
+  renderMapVisibleArea(ctx);
 });
+function renderMapImage(ctx) {
+  return new Promise(function (resolve, reject) {
+    console.log(100);
+    for (const key in imageURLs) {
+      if (Object.hasOwnProperty.call(imageURLs, key)) {
+        const img = new Image();
 
-// for (const key in testData) {
-// if (Object.hasOwnProperty.call(testData, key)) {
-// const x = key[0] * (tileInfo.canvasSize / 40);
-// const y = key[1] * (tileInfo.canvasSize / 40);
-// console.log(
-//   `key[0] : ${key[0]} , key[1] : ${key[1]} , x: ${x} , y: ${y}`
-// );
-// ctx.globalAlpha = 0.5;
-// ctx.fillStyle = "blue";
-// ctx.fillRect(x, y, tileInfo.canvasSize / 40, tileInfo.canvasSize / 40);
-// }
-// }
+        // `key` 番目の画像のURLを取得
+        img.src = imageURLs[key];
+
+        // 画像が読み込まれたら
+        img.onload = () => {
+          const x =
+            (key % tileInfo.numberOfSheetsPerSide) *
+            (tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide);
+          const y =
+            Math.floor(key / tileInfo.numberOfSheetsPerSide) *
+            (tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide);
+          ctx.globalAlpha = 0.5;
+          ctx.drawImage(
+            img,
+            x,
+            y,
+            tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide,
+            tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide
+          );
+        };
+      }
+    }
+    // resolve();
+  });
+}
+
+function renderMapVisibleArea(ctx) {
+  // return new Promise(function (resolve, reject) {
+  console.log(200);
+  for (const data of testData) {
+    const x = data[0] * (tileInfo.canvasSize / 40);
+    const y = data[1] * (tileInfo.canvasSize / 40);
+    console.log(
+      `data[0] : ${data[0]} , data[1] : ${data[1]} , x: ${x} , y: ${y}`
+    );
+    ctx.globalAlpha = 0.8;
+    ctx.fillStyle = "blue";
+    ctx.fillRect(x, y, tileInfo.canvasSize / 40, tileInfo.canvasSize / 40);
+  }
+  // });
+}
+
+// renderMapImage(ctx).then(() => {
+//   // renderMapVisibleArea(ctx);
+//   for (const data of testData) {
+//     const x = data[0] * (tileInfo.canvasSize / 40);
+//     const y = data[1] * (tileInfo.canvasSize / 40);
+//     console.log(
+//       `data[0] : ${data[0]} , data[1] : ${data[1]} , x: ${x} , y: ${y}`
+//     );
+//     ctx.globalAlpha = 0.5;
+//     ctx.fillStyle = "blue";
+//     ctx.fillRect(x, y, tileInfo.canvasSize / 40, tileInfo.canvasSize / 40);
+//   }
+// });
 </script>
 
 <style scoped>
