@@ -1,123 +1,104 @@
 <template>
   <div class="container">
     <canvas id="map"></canvas>
-    <!-- <template v-for="item in items"> -->
-    <!-- <Maptile
-        :url="`${url}${29084 + item[0]}/${12886 + item[1]}.png`"
-        :visivility="item[2]"
-      /> -->
-
-    <!-- <img
-        class="image"
-        :src="`${url}${29084 + item[0]}/${12886 + item[1]}.png`"
-      />
-      <span class="mark" v-if="item.visivility">◯</span> -->
-    <!-- </template> -->
   </div>
 </template>
 
 <script setup>
 //地図の種類を15の場合と14の場合で別にする．13 は実装のハードルが上がる．
-const is15 = true;
+const is15 = false;
+
+// 地図の設定．15と14で分岐させる
 const tileInfo = {
   numberOfSheetsPerSide: is15 ? 40 : 20,
   startX: is15 ? 29084 : 14542,
   strtY: is15 ? 12886 : 6443,
-  canvasSize: 4000,
+  canvasSize: 1600,
 };
-console.log(tileInfo.numberOfSheetsPerSide);
 
-import testData from "@/assets/testData.json";
+// api/getRainbowDataから取ってくる
 const rainbowData = await $fetch("/api/getRainbowData");
 console.log(rainbowData);
-const url = "https://cyberjapandata.gsi.go.jp/xyz/std/15/";
-const urlTemplate = `https://cyberjapandata.gsi.go.jp/xyz/std/15/29084/12886.png`;
 
-const items = new Array(1600);
-for (let x = 0; x < 40; x++) {
-  for (let y = 0; y < 40; y++) {
-    items[x + 40 * y] = [x, y, false];
+// 地理院地図のURL．この後に，`${x座標}/${y座標}.png` と続く．
+const url = `https://cyberjapandata.gsi.go.jp/xyz/std/${is15 ? 15 : 14}/`;
+
+// 虹が見れるかどうかを代入する配列を作成
+const items = new Array(tileInfo.numberOfSheetsPerSide ** 2);
+for (let x = 0; x < tileInfo.numberOfSheetsPerSide; x++) {
+  for (let y = 0; y < tileInfo.numberOfSheetsPerSide; y++) {
+    items[x + tileInfo.numberOfSheetsPerSide * y] = [x, y, false];
   }
 }
-// console.log(items);
 
 // for (const point of testData) {
-//   items[point[0] + 40 * point[1]][2] = true;
+// items[point[0] + tileInfo.numberOfSheetsPerSide * point[1]][2] = true;
 // }
 
 // for (const point of rainbowData.response) {
-//   items[point.x + 40 * point.y][2] = true;
+//   items[point.x + tileInfo.numberOfSheetsPerSide * point.y][2] = true;
 // }
 
 console.log(items);
 
 // 画像のURLリスト
-const imageURLs = [
-  // ここに画像のURLを追加してください
-];
-for (let x = 0; x < 40; x++) {
-  for (let y = 0; y < 40; y++) {
-    if (is15) {
-      imageURLs[40 * y + x] = `${url}${29084 + x}/${12886 + y}.png`; //15
-    } else {
-      imageURLs[40 * y + x] = `${url}${14542 + x}/${6443 + y}.png`; //14
-    }
+const imageURLs = [];
+for (let x = 0; x < tileInfo.numberOfSheetsPerSide; x++) {
+  for (let y = 0; y < tileInfo.numberOfSheetsPerSide; y++) {
+    imageURLs[tileInfo.numberOfSheetsPerSide * y + x] = `${url}${
+      tileInfo.startX + x
+    }/${tileInfo.strtY + y}.png`;
   }
 }
-console.log(imageURLs);
 
+// DOMが読み込み終わったら
 onMounted(() => {
-  // キャンバスの作成
+  // canvasを取得
   const canvas = document.getElementById("map");
   canvas.width = tileInfo.canvasSize;
   canvas.height = tileInfo.canvasSize;
   const ctx = canvas.getContext("2d");
 
+  // 画像を取得，描画
   for (const key in imageURLs) {
     if (Object.hasOwnProperty.call(imageURLs, key)) {
       const img = new Image();
+
+      // `key` 番目の画像のURLを取得
       img.src = imageURLs[key];
+
+      // 画像が読み込まれたら
       img.onload = () => {
-        const x = (key % 40) * 100;
-        const y = Math.floor(key / 40) * 100;
-        ctx.drawImage(img, x, y, 100, 100);
+        const x =
+          (key % tileInfo.numberOfSheetsPerSide) *
+          (tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide);
+        const y =
+          Math.floor(key / tileInfo.numberOfSheetsPerSide) *
+          (tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide);
+        ctx.drawImage(
+          img,
+          x,
+          y,
+          tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide,
+          tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide
+        );
       };
     }
   }
 });
-
-// // 画像の読み込みカウンター
-// let imagesLoaded = 0;
-
-// // 画像の読み込みと描画
-// function loadImageAndDraw(index) {
-//   if (index >= imageURLs.length) {
-//     // すべての画像が読み込まれたらキャンバスをDOMに追加
-//     document.getElementById("map").innerHTML = canvas;
-//     return;
-//   }
-
-//   const img = new Image();
-//   img.src = imageURLs[index];
-//   img.onload = () => {
-//     const x = (index % 40) * 256;
-//     const y = Math.floor(index / 40) * 256;
-//     ctx.drawImage(img, x, y);
-//     imagesLoaded++;
-//     loadImageAndDraw(imagesLoaded); // 次の画像を読み込む
-//   };
-// }
-
-// // 最初の画像を読み込みと描画を開始する
-// loadImageAndDraw(imagesLoaded);
 </script>
 
 <style scoped>
 .container {
-  margin-bottom: auto;
-  display: grid;
-  grid-template-columns: repeat(40, 2.5%);
-  /* grid-template-rows: repeat(40, 2.5%); */
+  /* margin-bottom: auto; */
+  overflow: scroll;
+  height: 70svh;
+}
+
+#map {
+  /* 画面幅若しくは縦のうち小さいほうの3倍 */
+  width: 300vmin;
+  height: 300vmin;
 }
 .image {
   width: 100%;
