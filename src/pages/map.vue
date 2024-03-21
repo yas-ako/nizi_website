@@ -1,7 +1,10 @@
 <template>
-  <div class="container">
-    <canvas id="map"></canvas>
-    <!-- <canvas id=""></canvas> -->
+  <div>
+    <div class="container">
+      <canvas id="map"></canvas>
+      <!-- <canvas id=""></canvas> -->
+    </div>
+    <p m-4>虹が見える可能性があると判定された部分を青く表示します．</p>
   </div>
 </template>
 
@@ -82,7 +85,7 @@ function renderMapImage(ctx) {
           const y =
             Math.floor(key / tileInfo.numberOfSheetsPerSide) *
             (tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide);
-          ctx.globalAlpha = 0.5;
+          ctx.globalAlpha = 1.0;
           ctx.drawImage(
             img,
             x,
@@ -93,7 +96,7 @@ function renderMapImage(ctx) {
         };
       }
     }
-    // resolve();
+    resolve();
   });
 }
 
@@ -108,7 +111,7 @@ function renderMapVisibleArea(ctx) {
     );
     ctx.globalAlpha = 0.8;
     ctx.fillStyle = "blue";
-    ctx.fillRect(x, y, tileInfo.canvasSize / 40, tileInfo.canvasSize / 40);
+    // ctx.fillRect(x, y, tileInfo.canvasSize / 40, tileInfo.canvasSize / 40);
   }
   // });
 }
