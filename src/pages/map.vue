@@ -147,13 +147,17 @@ function renderMapVisibleArea(ctx) {
   height: 300vmin;
 }
 
-.map {
+.map_wrapper {
   position: relative;
 }
 
-#filter {
+.tile {
   position: absolute;
 }
+
+/* #filter {
+  position: absolute;
+} */
 
 .image {
   width: 100%;
