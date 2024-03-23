@@ -1,8 +1,11 @@
 <template>
   <div>
     <div class="container">
-      <canvas id="map"></canvas>
-      <!-- <canvas id=""></canvas> -->
+      <div class="map_wrapper">
+        <canvas class="tile" id="map_filter"></canvas>
+        <canvas clas="tile" id="map_tile"></canvas>
+        <!-- <canvas id=""></canvas> -->
+      </div>
     </div>
     <p m-4>虹が見える可能性があると判定された部分を青く表示します．</p>
   </div>
@@ -60,7 +63,7 @@ for (let x = 0; x < tileInfo.numberOfSheetsPerSide; x++) {
 // DOMが読み込み終わったら
 onMounted(() => {
   // canvasを取得
-  const canvas = document.getElementById("map");
+  const canvas = document.getElementById("map_tile");
   canvas.width = tileInfo.canvasSize;
   canvas.height = tileInfo.canvasSize;
   const ctx = canvas.getContext("2d");
@@ -138,11 +141,20 @@ function renderMapVisibleArea(ctx) {
   height: 70svh;
 }
 
-#map {
+.tile {
   /* 画面幅若しくは縦のうち小さいほうの3倍 */
   width: 300vmin;
   height: 300vmin;
 }
+
+.map {
+  position: relative;
+}
+
+#filter {
+  position: absolute;
+}
+
 .image {
   width: 100%;
 }
