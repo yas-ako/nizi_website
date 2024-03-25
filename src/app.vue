@@ -17,6 +17,7 @@
       </v-container>
     </v-navigation-drawer>
     <v-main>
+      <NuxtLoadingIndicator />
       <v-container>
         <NuxtPage />
       </v-container>
