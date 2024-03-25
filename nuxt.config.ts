@@ -28,5 +28,6 @@ export default defineNuxtConfig({
   ssr: true,
   routeRules: {
     "/map": { ssr: false },
+    "/server/api/**": { ssr: false },
   },
 });

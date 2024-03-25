@@ -41,9 +41,9 @@ for (let x = 0; x < tileInfo.numberOfSheetsPerSide; x++) {
   }
 }
 
-for (const point of testData) {
-  items[point[0] + tileInfo.numberOfSheetsPerSide * point[1]][2] = true;
-}
+// for (const point of testData) {
+//   items[point[0] + tileInfo.numberOfSheetsPerSide * point[1]][2] = true;
+// }
 
 // for (const point of rainbowData.response) {
 //   items[point.x + tileInfo.numberOfSheetsPerSide * point.y][2] = true;
@@ -68,8 +68,38 @@ onMounted(() => {
   map_tile.width = tileInfo.canvasSize;
   map_tile.height = tileInfo.canvasSize;
   const map_tile_ctx = map_tile.getContext("2d");
+  //////////////////////////////////////////////
   renderMapImage(map_tile_ctx);
-  nextTick();
+  // for (const key in imageURLs) {
+  //   if (Object.hasOwnProperty.call(imageURLs, key)) {
+  //     const img = new Image();
+
+  //     // `key` 番目の画像のURLを取得
+  //     img.src = imageURLs[key];
+
+  //     // 画像が読み込まれたら
+  //     img.onload = () => {
+  //       const x =
+  //         (key % tileInfo.numberOfSheetsPerSide) *
+  //         (tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide);
+  //       const y =
+  //         Math.floor(key / tileInfo.numberOfSheetsPerSide) *
+  //         (tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide);
+  //       map_tile_ctx.globalAlpha = 1.0;
+  //       map_tile_ctx.drawImage(
+  //         img,
+  //         x,
+  //         y,
+  //         tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide,
+  //         tileInfo.canvasSize / tileInfo.numberOfSheetsPerSide
+  //       );
+  //     };
+  //   }
+  // }
+
+  //////////////////////////////////////////////
+
+  // nextTick();
 
   const map_filter = document.getElementById("map_filter");
   map_filter.width = tileInfo.canvasSize;
@@ -106,16 +136,32 @@ onMounted(() => {
   }
   function renderMapVisibleArea(ctx) {
     console.log(ctx);
-    // return new Promise(function (resolve, reject) {
     console.log(200);
 
     // Error
-    // console.log(JSON.stringify(response));
-    for (const data of response.response) {
-      // Error
+    console.log(response.data);
+    // for (const data in response.response) {
+    //   if (Object.hasOwnProperty.call(response, key)) {
+    //     // Error
 
-      const x = data[0] * (tileInfo.canvasSize / 40);
-      const y = data[1] * (tileInfo.canvasSize / 40);
+    //     const x = data[0] * (tileInfo.canvasSize / 40);
+    //     const y = data[1] * (tileInfo.canvasSize / 40);
+    //     // console.log(
+    //     //   `data[0] : ${data[0]} , data[1] : ${data[1]} , x: ${x} , y: ${y}`
+    //     // );
+    //     ctx.globalAlpha = 0.5;
+    //     ctx.fillStyle = "DarkBlue";
+    //     ctx.fillRect(x, y, tileInfo.canvasSize / 40, tileInfo.canvasSize / 40);
+    // }
+    // }
+
+    console.log(response);
+    for (let i = 0; i < response.data.length; i++) {
+      // 現在の要素を取得
+      let currentElement = response.data[i];
+      console.log(currentElement);
+      const x = currentElement[0] * (tileInfo.canvasSize / 40);
+      const y = currentElement[1] * (tileInfo.canvasSize / 40);
       // console.log(
       //   `data[0] : ${data[0]} , data[1] : ${data[1]} , x: ${x} , y: ${y}`
       // );
@@ -123,7 +169,6 @@ onMounted(() => {
       ctx.fillStyle = "DarkBlue";
       ctx.fillRect(x, y, tileInfo.canvasSize / 40, tileInfo.canvasSize / 40);
     }
-    // });
   }
 });
 </script>
